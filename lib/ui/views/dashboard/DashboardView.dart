@@ -510,7 +510,7 @@ class _DashboardViewState extends State<DashboardView> with BaseCommonWidget,Tic
                       children: [
                         Container(
                           height: SizeConfig.relativeHeight(17.91),
-                          width: SizeConfig.relativeWidth(43.10),
+                          width: SizeConfig.relativeWidth(35.10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                             color: Hexcolor('#205cbe'),
