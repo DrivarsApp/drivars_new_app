@@ -19,23 +19,23 @@ class TournamentDetailsHeader extends StatelessWidget with BaseCommonWidget {
       child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
-          Image.asset(
-            ImagesPaths.nightGif,
-            height: double.infinity,
-            width: double.infinity,
-            fit: BoxFit.fill,
-          ),
+//          Image.asset(
+//            ImagesPaths.nightGif,
+//            height: double.infinity,
+//            width: double.infinity,
+//            fit: BoxFit.fill,
+//          ),
           PositionedDirectional(
             child: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
               leading: IconButton(
-                icon: SvgPicture.asset(
-                  ImagesPaths.iconRoundBackArrow,
-                  width: SizeConfig.relativeWidth(8.45),
-                  height: SizeConfig.relativeWidth(8.45),
-                  color: AppColors.whiteColor,
-                ),
+//                icon: SvgPicture.asset(
+//                  ImagesPaths.iconRoundBackArrow,
+//                  width: SizeConfig.relativeWidth(8.45),
+//                  height: SizeConfig.relativeWidth(8.45),
+//                  color: AppColors.whiteColor,
+//                ),
                 onPressed: () {
                   Navigator.pop(context);
                 },

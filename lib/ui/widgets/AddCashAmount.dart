@@ -54,7 +54,7 @@ class AddCashAmount extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SvgPicture.asset(
-                        ImagesPaths.iconRupee,
+                        ImagesPaths.iconTrophy,
                         width: SizeConfig.relativeWidth(3.86),
                         height: SizeConfig.relativeHeight(1.78),
                       ),
@@ -72,7 +72,7 @@ class AddCashAmount extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SvgPicture.asset(
-                        ImagesPaths.iconLightCoin,
+                        ImagesPaths.iconTrophy,
                         width: SizeConfig.relativeWidth(3.86),
                         height: SizeConfig.relativeHeight(2.34),
                       ),

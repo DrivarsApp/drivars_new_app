@@ -72,11 +72,11 @@ class ModalSheet extends StatelessWidget {
                       right: SizeConfig.relativeWidth(6.34),
                     ),
                     alignment: Alignment.centerRight,
-                    child: SvgPicture.asset(
-                      ImagesPaths.iconExitBlue,
-                      width: SizeConfig.relativeWidth(8.69),
-                      height: SizeConfig.relativeWidth(8.69),
-                    ),
+//                    child: SvgPicture.asset(
+//                      ImagesPaths.iconExitBlue,
+//                      width: SizeConfig.relativeWidth(8.69),
+//                      height: SizeConfig.relativeWidth(8.69),
+//                    ),
                   ),
                 ),
               ],

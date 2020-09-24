@@ -1,7 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -23,7 +19,6 @@ import 'package:gogame/ui/widgets/CustomButton.dart';
 import 'package:gogame/ui/widgets/PickupdropContainer.dart';
 
 import 'package:gogame/viewmodels/base_model.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -34,29 +29,19 @@ class PermissionView extends StatefulWidget {
   _PermissionViewState createState() => _PermissionViewState();
 }
 
-class _PermissionViewState extends State<PermissionView> with BaseCommonWidget,TickerProviderStateMixin {
+class _PermissionViewState extends State<PermissionView>
+    with BaseCommonWidget, TickerProviderStateMixin {
   TextEditingController usernameController = new TextEditingController();
-
-  TabController _tabController;
 
   @override
   void initState() {
     setState(() {});
     super.initState();
-
-    _tabController = TabController(
-      initialIndex: 0,
-      length: 2,
-      vsync: this,
-    );
-
   }
-
 
   @override
   void dispose() {
     super.dispose();
-    _tabController?.dispose();
   }
 
   @override
@@ -90,117 +75,91 @@ class _PermissionViewState extends State<PermissionView> with BaseCommonWidget,T
 
   Widget _getBaseContainer(PermissionViewModel model) {
     return Scaffold(
-
-//      appBar: AppBar(
-//        backgroundColor: Hexcolor('#205cbe'),
-//        leading: Icon(Icons.menu,color:AppColors.white,),
-//        title: Text("Hii",style: TextStyle(color: AppColors.white),),
-//      ),
-
-
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-           // SizeConfig.verticalSpacer(2.15),
-            Container(
-              padding: EdgeInsets.only(top: SizeConfig.relativeHeight(3)),
-              height: SizeConfig.relativeHeight(45.91),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Hexcolor('#205cbe'),
-                borderRadius:BorderRadius.circular(8),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.relativeWidth(3.64),
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: SizeConfig.relativeWidth(101.1),
+                height: SizeConfig.relativeHeight(55.02),
+                child: SvgPicture.asset(
+                  ImagesPaths.iconPaperMap,
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.pop(context);
+              Text(
+                "Allow Permissions ",
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(24.0),
+                ),
+              ),
+              SizeConfig.verticalSpacer(4),
+              Row(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(
+                    Icons.phone,
+                    size: SizeConfig.relativeWidth(10.6),
+                  ),
+                  //SizeConfig.horizontalSpacer(11),
+                  Text(
+                    "Phone Number for account security  and new updates ",
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontFamily: AppTheme.interRegular,
+                      fontStyle: FontStyle.normal,
+                      fontSize: SizeConfig.setSp(14.0),
+                    ),
+                  ),
+                ],
+              ),
+              SizeConfig.verticalSpacer(1.60),
+              Row(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: SizeConfig.relativeWidth(14.6),
+                  ),
+                  //SizeConfig.horizontalSpacer(11),
+                  Text(
+                    "Current location to get pickup location",
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontFamily: AppTheme.interRegular,
+                      fontStyle: FontStyle.normal,
+                      fontSize: SizeConfig.setSp(14.0),
+                    ),
+                  ),
+                ],
+              ),
+              SizeConfig.verticalSpacer(3),
+              Container(
+                height: SizeConfig.relativeHeight(7.0),
+                width: SizeConfig.relativeWidth(55),
+                padding: EdgeInsets.only(
+                  left: SizeConfig.relativeWidth(7.52),
+                  right: SizeConfig.relativeWidth(7.52),
+                ),
+                child: CustomBorderButton(
+                  title: 'Allow',
+                  onPress: () {
+                    model.redirectToPage(DashboardViewRoute);
                   },
                 ),
               ),
-
-
-            ),
-            SizeConfig.verticalSpacer(4),
-            Text(
-                "Allow Permissions ",
-                style:  TextStyle(
-                    color:   Color(0xff000000),
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "Roboto",
-                    fontStyle:  FontStyle.normal,
-                    fontSize: 24.0
-                )
-            ),
-            SizeConfig.verticalSpacer(4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.phone,size: SizeConfig.relativeSize(18),),
-                SizeConfig.horizontalSpacer(11),
-                Text(
-                    "Phone Number for account security  and new updates ",
-                    style: const TextStyle(
-                        color:  const Color(0xff000000),
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle:  FontStyle.normal,
-                        fontSize: 14.0
-                    )
-                )
-              ],
-            ),
-            SizeConfig.verticalSpacer(1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.location_on,size: SizeConfig.relativeSize(18),),
-                SizeConfig.horizontalSpacer(12),
-                Text(
-                    "Current location to get pickup location",
-                    style: const TextStyle(
-                        color:  Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle:  FontStyle.normal,
-                        fontSize: 14.0
-                    )
-                )
-
-              ],
-            ),
-            SizeConfig.verticalSpacer(3),
-            Container(
-              height: SizeConfig.relativeHeight(7.0),
-              width:SizeConfig.relativeWidth(55),
-              padding: EdgeInsets.only(
-                left: SizeConfig.relativeWidth(7.52),
-                right: SizeConfig.relativeWidth(7.52),
-              ),
-              child: CustomButton(
-                title: 'Allow',
-                onPress: () {
-                  Navigator.pop(context);
-                  model.redirectToPage(DashboardViewRoute);
-//
-                  //_showModalSheet(context, model);
-                },
-              ),
-            ),
-
-
-          ],
+            ],
+          ),
         ),
       ),
-
     );
-
   }
-
 }
-
-
-
-
-

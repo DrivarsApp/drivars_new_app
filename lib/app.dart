@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gogame/locator.dart';
 import 'package:gogame/models/user_provider.dart';
+import 'package:gogame/router.dart';
 import 'package:gogame/services/navigation_service.dart';
-import 'package:gogame/ui/router.dart';
+
 import 'package:gogame/ui/shared/app_theme.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';

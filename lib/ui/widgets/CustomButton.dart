@@ -11,7 +11,6 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final String color;
 
-
   const CustomButton({
     this.title,
     this.onPress,
@@ -25,11 +24,10 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: () => onPress(),
       child: Container(
-//        height:SizeConfig.relativeHeight(4),
-//                     width:SizeConfig.relativeWidth(30),
+        height: SizeConfig.relativeHeight(6),
+        width: SizeConfig.relativeWidth(40),
         decoration: BoxDecoration(
-          color: Hexcolor("#205cbe"),
-
+          color: Colors.grey,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius),
           ),
@@ -41,13 +39,13 @@ class CustomButton extends StatelessWidget {
 //              spreadRadius: 0,
 //            )
 //          ],
-        //  color: AppColors.blueColor,
+          //  color: AppColors.blueColor,
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
-              color: AppColors.white,
+              color: AppColors.black,
               fontFamily: AppTheme.interBold,
               fontStyle: FontStyle.normal,
               fontSize: SizeConfig.setSp(16),

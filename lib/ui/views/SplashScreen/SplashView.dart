@@ -34,7 +34,8 @@ class SplashView extends StatefulWidget {
   _SplashViewState createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> with BaseCommonWidget,TickerProviderStateMixin {
+class _SplashViewState extends State<SplashView>
+    with BaseCommonWidget, TickerProviderStateMixin {
   TextEditingController usernameController = new TextEditingController();
 
   TabController _tabController;
@@ -49,9 +50,7 @@ class _SplashViewState extends State<SplashView> with BaseCommonWidget,TickerPro
       length: 2,
       vsync: this,
     );
-
   }
-
 
   @override
   void dispose() {
@@ -90,9 +89,7 @@ class _SplashViewState extends State<SplashView> with BaseCommonWidget,TickerPro
 
   Widget _getBaseContainer(SplashViewModel model) {
     return Scaffold(
-
 //
-
 
       body: SingleChildScrollView(
         child: Column(
@@ -100,69 +97,52 @@ class _SplashViewState extends State<SplashView> with BaseCommonWidget,TickerPro
             Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: SizeConfig.relativeHeight(13)),
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color:Hexcolor('#205cbe'),
-                  ),
-                  child: Column(
-                    children: [
-                      ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),
-              child: Container(
-                width: SizeConfig.relativeWidth(30.74),
-                height: SizeConfig.relativeWidth(30.74),
-                child: Image.asset(ImagesPaths.icondrivars,fit: BoxFit.fill,),
-
-              ),
-            ),
-                      SizeConfig.verticalSpacer(2),
-
-                      InkWell(
-                        child: Text("WE Drive Vehicle",style: TextStyle(fontFamily: AppTheme.interBold,
-                        fontSize: SizeConfig.setSp(24),
-                        color: AppColors.white)),
-                        onTap: (){
-
-                          },
-                      ),
-
-                      SizeConfig.verticalSpacer(10),
-                      Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.relativeHeight(13)),
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Hexcolor('#205cbe'),
+                    ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: Container(
+                            width: SizeConfig.relativeWidth(30.74),
+                            height: SizeConfig.relativeWidth(30.74),
+                            child: Image.asset(
+                              ImagesPaths.icondrivars,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizeConfig.verticalSpacer(2),
+                        InkWell(
+                          child: Text("We Drive Vehicle",
+                              style: TextStyle(
+                                  fontFamily: AppTheme.interBold,
+                                  fontSize: SizeConfig.setSp(24),
+                                  color: AppColors.white)),
+                          onTap: () {},
+                        ),
+                        SizeConfig.verticalSpacer(10),
+                        Container(
 //                        height: SizeConfig.relativeWidth(80.43),
 //                        width: SizeConfig.relativeWidth(41.37),
-                        child: SvgPicture.asset(
-                          ImagesPaths.iconsplash,
-                         height: SizeConfig.relativeWidth(80.43),
-                        width: SizeConfig.relativeWidth(41.37),
+                          child: SvgPicture.asset(
+                            ImagesPaths.iconsplash,
+                            height: SizeConfig.relativeWidth(80.43),
+                            width: SizeConfig.relativeWidth(41.37),
+                          ),
                         ),
-                      ),
-
-                    ],
-                  )
-                ) ],
+                      ],
+                    ))
+              ],
             ),
-
-
           ],
         ),
       ),
-
     );
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
