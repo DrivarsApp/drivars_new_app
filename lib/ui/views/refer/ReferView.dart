@@ -104,7 +104,7 @@ class _ReferViewState extends State<ReferView> with BaseCommonWidget {
           child: Column(
             children: [
               SvgPicture.asset(
-                ImagesPaths.iconSavings,
+                ImagesPaths.iconsavings,
                 height: SizeConfig.relativeHeight(34.93),
               ),
               SizeConfig.verticalSpacer(2),

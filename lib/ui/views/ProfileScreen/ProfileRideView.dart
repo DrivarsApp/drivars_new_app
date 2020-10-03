@@ -44,7 +44,6 @@ class _ProfileViewState extends State<ProfileView>
   TextEditingController usernameController = new TextEditingController();
 
   TabController _tabController;
-
   final _usernameController = TextEditingController();
   final _mobileController = TextEditingController();
   final _nameController = TextEditingController();
@@ -53,7 +52,6 @@ class _ProfileViewState extends State<ProfileView>
   final _emailController = TextEditingController();
   final _dobController = TextEditingController();
   final String _dateFormat = "dd/MM/yyyy";
-
   bool _isChecked = false;
 
   @override
@@ -121,18 +119,30 @@ class _ProfileViewState extends State<ProfileView>
             children: [
               SizeConfig.verticalSpacer(8),
               Center(
-                child: Container(
-                  width: SizeConfig.relativeWidth(25.84),
-                  height: SizeConfig.relativeWidth(25.84),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      child: CachedNetworkImage(
-                        imageUrl: ImageNetwork.placeholderImage,
-                        fit: BoxFit.fill,
+                child: Row(
+                  children: [
+                    Container(
+                      width: SizeConfig.relativeWidth(25.84),
+                      height: SizeConfig.relativeWidth(25.84),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          child: SvgPicture.asset(
+                            ImagesPaths.iconuser,
+                            color: Colors.white,
+                            // height: SizeConfig.relativeHeight(34.93),
+                          ),
+
+//                          CachedNetworkImage(
+//                            imageUrl: ImagesPaths.iconuser,
+////                            imageUrl: ImageNetwork.placeholderImage,
+//                            fit: BoxFit.fill,
+//                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Icon(MdiIcons.accountEdit),
+                  ],
                 ),
               ),
 
@@ -245,7 +255,7 @@ class _ProfileViewState extends State<ProfileView>
                       onTap: () {},
                     ),
                     ButtonCustom(
-                      title: 'Confirm',
+                      title: 'Update Profile',
                       showIndicator: model.cashSelected,
                       onTap: () {
                         Navigator.pop(context);

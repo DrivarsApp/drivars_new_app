@@ -86,7 +86,7 @@ class _LoginViewState extends State<LoginView> with BaseCommonWidget {
                   color: AppColors.blue,
                 ),
                 child: SvgPicture.asset(
-                  ImagesPaths.iconCityDrivers,
+                  ImagesPaths.iconlogin,
                   fit: BoxFit.cover,
                 ),
               ),

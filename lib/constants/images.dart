@@ -11,19 +11,21 @@ class ImagesPaths {
   static String iconplaceholder = 'assets/icons/placeholder.png';
   static String icondrivars = 'assets/images/logoicon.png';
   static String iconsplash = 'assets/icons/splashicon.svg';
-  static String iconPaperMap = 'assets/icons/PaperMap.svg';
-  static String iconCityDrivers = 'assets/icons/CityDrivers.svg';
-  static String iconSavings = 'assets/icons/Savings.svg';
-  static String iconTicket = 'assets/icons/Ticket.svg';
-  static String iconMoney = 'assets/icons/Money.svg';
-  static String iconWallet = 'assets/icons/Wallet.svg';
-  static String iconSedan = 'assets/icons/Sedan.svg';
-  static String iconHatchBackCar = 'assets/icons/HatchBackCar.svg';
+  static String iconPermission = 'assets/images/permission.svg';
+  static String iconCityDrivers = 'assets/images/CityDrivers.svg';
+  static String iconsavings = 'assets/images/referearn.svg';
+  static String iconTicket = 'assets/images/Ticket.svg';
+  static String iconmoney = 'assets/images/money.svg';
+  static String iconWallet = 'assets/images/wallet.svg';
+  static String iconSedan = 'assets/images/Sedan.svg';
+  static String iconHatchBackCar = 'assets/images/HatchBackCar.svg';
   static String iconCalculate = 'assets/images/Calculateboy.svg';
   static String iconAppreciation = 'assets/images/Appreciation.svg';
-  static String iconInstagram = 'assets/icons/Instagram.svg';
-  static String iconTwitter = 'assets/icons/Twitter.svg';
-  static String iconFacebook = 'assets/icons/Facebook.svg';
+  static String iconInstagram = 'assets/images/instagram.svg';
+  static String iconTwitter = 'assets/images/twitter.svg';
+  static String iconFacebook = 'assets/images/facebook.svg';
+  static String iconlogin = 'assets/images/loginimage.svg';
+  static String iconuser = 'assets/images/user.svg';
 }
 
 class ImageNetwork {

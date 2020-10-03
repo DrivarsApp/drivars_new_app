@@ -86,7 +86,7 @@ class _PermissionViewState extends State<PermissionView>
                 width: SizeConfig.relativeWidth(101.1),
                 height: SizeConfig.relativeHeight(55.02),
                 child: SvgPicture.asset(
-                  ImagesPaths.iconPaperMap,
+                  ImagesPaths.iconPermission,
                   fit: BoxFit.cover,
                 ),
               ),

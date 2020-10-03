@@ -110,7 +110,7 @@ class _PaymentViewState extends State<PaymentView> with BaseCommonWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SvgPicture.asset(
-                      ImagesPaths.iconMoney,
+                      ImagesPaths.iconmoney,
                       width: SizeConfig.relativeWidth(30),
                       height: SizeConfig.relativeHeight(10.0),
                     ),
