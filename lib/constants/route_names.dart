@@ -14,3 +14,4 @@ const String OrderViewRoute = 'OrderView';
 const String BookRideViewRoute = 'BookRideView';
 const String ProfileViewRoute = 'ProfileView';
 const String ThankPopupViewRoute = 'ThankPopupView';
+const String SelectCityViewRoute = 'SelectCityView';

@@ -82,6 +82,11 @@ class _OTPVerifyViewState extends State<OTPVerifyView> with BaseCommonWidget {
                 height: SizeConfig.relativeHeight(35),
                 width: double.infinity,
                 color: AppColors.blue,
+
+//                child: SvgPicture.asset(
+//                  ImagesPaths.iconlogin,
+//                  fit: BoxFit.cover,
+//                ),
               ),
               SizeConfig.verticalSpacer(2),
               Text(

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:gogame/constants/images.dart';
 import 'package:gogame/constants/route_names.dart';
 
 import 'package:gogame/ui/shared/app_colors.dart';
@@ -95,29 +96,33 @@ class _DashboardViewState extends State<DashboardView>
         elevation: 0,
         backgroundColor: AppColors.yellow,
         titleSpacing: 100.5,
-        title: Container(
-          width: 100,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          child: Center(
-            child: new Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new DropdownButton<String>(
-                  value: _value,
-                  items: <DropdownMenuItem<String>>[
-                    new DropdownMenuItem(
-                      child: new Text('one'),
-                      value: 'one',
-                    ),
-                    new DropdownMenuItem(child: new Text('two'), value: 'two'),
-                  ],
-                  onChanged: (String value) {
-                    setState(() => _value = value);
-                  },
-                ),
-              ],
+        title: InkWell(
+          onTap: _SelectCityshowModalSheet,
+          child: Container(
+            width: 100,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Center(
+              child: new Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  new DropdownButton<String>(
+                    value: _value,
+                    items: <DropdownMenuItem<String>>[
+                      new DropdownMenuItem(
+                        child: new Text('one'),
+                        value: 'one',
+                      ),
+                      new DropdownMenuItem(
+                          child: new Text('two'), value: 'two'),
+                    ],
+                    onChanged: (String value) {
+                      setState(() => _value = value);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -136,7 +141,9 @@ class _DashboardViewState extends State<DashboardView>
               color: AppColors.white,
               size: SizeConfig.relativeWidth(7.3),
             ),
-            onPressed: () {},
+            onPressed: () {
+              _showModalSheetTournament();
+            },
           ),
         ],
       ),
@@ -241,7 +248,9 @@ class _DashboardViewState extends State<DashboardView>
                           height: SizeConfig.relativeHeight(4.94),
                           child: CustomButton(
                             title: 'Round Trip',
-                            onPress: () {},
+                            onPress: () {
+                              _SelectCityshowModalSheet();
+                            },
                           ),
                         ),
                       ],
@@ -962,6 +971,176 @@ class _DashboardViewState extends State<DashboardView>
         );
       },
     );
+  }
+
+  void _SelectCityshowModalSheet() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+        ),
+        context: context,
+        builder: (builder) {
+          return GridView.builder(
+            itemCount: 6,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
+            itemBuilder: (BuildContext context, int innerIndex) {
+              return Container(
+                padding: EdgeInsets.all(3),
+                child: InkWell(
+                  onTap: () {
+                    // model.redirectToPage(GameViewRoute);
+                  },
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      Container(
+                        height: double.infinity,
+                        width: SizeConfig.relativeWidth(28.67),
+                        //  width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.greyShadow,
+                              offset: Offset(0, 0),
+                              blurRadius: 6,
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: CachedNetworkImage(
+                            errorWidget: (context, val, _) {
+                              return CachedNetworkImage(
+                                imageUrl: ImageNetwork.gamePlaceholderImage,
+                              );
+                            },
+                            fit: BoxFit.fill,
+                            imageUrl: ImageNetwork.desertImage,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: SizeConfig.relativeWidth(2.45),
+                          bottom: SizeConfig.relativeHeight(1.5),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Text(
+                              "SteppyFeet",
+                              style: TextStyle(
+                                fontFamily: AppTheme.interBold,
+                                color: AppColors.white,
+                                fontSize: SizeConfig.setSp(16.0),
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                            Text(
+                              "Funny • Sizzle • Dank",
+                              style: TextStyle(
+                                fontFamily: AppTheme.interRegular,
+                                color: AppColors.white,
+                                fontSize: SizeConfig.setSp(12.0),
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+//        return Container(
+//          padding: EdgeInsets.all(5),
+//          child: InkWell(
+//            onTap: () {
+//              //  model.redirectToPage(GameViewRoute);
+//            },
+//            child: Stack(
+//              overflow: Overflow.visible,
+//              children: [
+//                Container(
+//                  height: double.infinity,
+//                  width: double.infinity,
+//                  decoration: BoxDecoration(
+//                    boxShadow: [
+//                      BoxShadow(
+//                        color: AppColors.greyShadow,
+//                        offset: Offset(0, 0),
+//                        blurRadius: 6,
+//                        spreadRadius: 0,
+//                      ),
+//                    ],
+//                  ),
+//                  child: ClipRRect(
+//                    borderRadius: BorderRadius.circular(10.0),
+//                    child: CachedNetworkImage(
+//                      errorWidget: (context, val, _) {
+//                        return CachedNetworkImage(
+//                          imageUrl: ImageNetwork.gamePlaceholderImage,
+//                        );
+//                      },
+//                      fit: BoxFit.fill,
+//                      imageUrl: ImageNetwork.desertImage,
+//                    ),
+//                  ),
+//                ),
+//                Container(
+//                  padding: EdgeInsets.only(
+//                    left: SizeConfig.relativeWidth(2.45),
+//                    bottom: SizeConfig.relativeHeight(1.5),
+//                  ),
+//                  child: Column(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    children: [
+//                      Expanded(
+//                        child: Container(),
+//                      ),
+//                      Text(
+//                        "SteppyFeet",
+//                        style: TextStyle(
+//                          fontFamily: AppTheme.interBold,
+//                          color: AppColors.white,
+//                          fontSize: SizeConfig.setSp(16.0),
+//                          fontStyle: FontStyle.normal,
+//                        ),
+//                      ),
+//                      Text(
+//                        "Funny • Sizzle • Dank",
+//                        style: TextStyle(
+//                          fontFamily: AppTheme.interRegular,
+//                          color: AppColors.white,
+//                          fontSize: SizeConfig.setSp(12.0),
+//                          fontWeight: FontWeight.w400,
+//                          fontStyle: FontStyle.normal,
+//                        ),
+//                      ),
+//                    ],
+//                  ),
+//                ),
+//              ],
+//            ),
+//          ),
+//        );
+
+        );
   }
 }
 

@@ -23,10 +23,10 @@ dependencies:
   intl: ^0.16.1
   flag: ^2.0.3
   page_transition: ^1.1.5
-  #  sms_autofill: ^1.2.1
+  sms_autofill: ^1.2.1
 
   carousel_slider: ^2.1.0
-  #  sliding_panel: ^1.2.3
+  sliding_panel: ^1.2.3
   http: ^0.12.1
   device_info: ^0.4.2+4
   #  flutter_secure_storage: ^3.3.3
@@ -64,6 +64,7 @@ dependencies:
   simple_tooltip: ^0.1.14
   super_tooltip: ^0.9.0
   material_design_icons_flutter: ^4.0.5345
+
   hexcolor: ^1.0.4
   analog_clock: ^0.0.1
 dependency_overrides:

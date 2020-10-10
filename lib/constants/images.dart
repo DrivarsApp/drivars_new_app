@@ -26,6 +26,7 @@ class ImagesPaths {
   static String iconFacebook = 'assets/images/facebook.svg';
   static String iconlogin = 'assets/images/loginimage.svg';
   static String iconuser = 'assets/images/user.svg';
+  static String iconOTP = 'assets/icons/otpimage.svg';
 }
 
 class ImageNetwork {

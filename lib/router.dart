@@ -3,6 +3,7 @@ import 'package:gogame/constants/route_names.dart';
 import 'package:gogame/ui/views/Permissions/PermissionView.dart';
 import 'package:gogame/ui/views/ProfileScreen/ProfileRideView.dart';
 import 'package:gogame/ui/views/SelectCar/SelectCarView.dart';
+import 'package:gogame/ui/views/SelectCity/SelectCityView.dart';
 import 'package:gogame/ui/views/Select_Time/SelectTimeView.dart';
 import 'package:gogame/ui/views/SplashScreen/SplashView.dart';
 import 'package:gogame/ui/views/ThankuPopup/ThankPopupView.dart';
@@ -96,6 +97,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: ThankPopupView(),
+      );
+    case SelectCityViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SelectCityView(),
       );
 
 //    case PayViewRoute:
