@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:gogame/constants/route_names.dart';
-import 'package:gogame/models/game_data.dart';
 import 'package:gogame/ui/views/Permissions/PermissionView.dart';
 import 'package:gogame/ui/views/SelectCar/SelectCarView.dart';
 import 'package:gogame/ui/views/Select_Time/SelectTimeView.dart';
 import 'package:gogame/ui/views/SplashScreen/SplashView.dart';
+import 'package:gogame/ui/views/bookride/BookRideProvider.dart';
+import 'package:gogame/ui/views/bookride/BookRideView.dart';
 import 'package:gogame/ui/views/dashboard/DashboardView.dart';
+import 'package:gogame/ui/views/order/OrderProvider.dart';
+import 'package:gogame/ui/views/order/OrderView.dart';
+import 'package:gogame/ui/views/payment/PaymentProvider.dart';
+import 'package:gogame/ui/views/payment/PaymentView.dart';
+import 'package:gogame/ui/views/refer/ReferView.dart';
 import 'package:gogame/ui/views/user/login/LoginView.dart';
 
 import 'package:gogame/ui/views/user/otp/OTPVerifyView.dart';
@@ -17,7 +23,10 @@ import 'package:provider/provider.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginViewRoute:
-      return _getPageRoute(routeName: settings.name, viewToShow: LoginView());
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: LoginView(),
+      );
     case UsernameViewRoute:
       return _getPageRoute(
         routeName: settings.name,
@@ -43,127 +52,43 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SplashViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow:  SplashView(),
+        viewToShow: SplashView(),
       );
     case PermissionViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow:  PermissionView(),
+        viewToShow: PermissionView(),
+      );
+    case ReferViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ReferView(),
+      );
+    case PaymentViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ChangeNotifierProvider<PaymentProvider>(
+          create: (context) => PaymentProvider(),
+          child: PaymentView(),
+        ),
+      );
+    case OrderViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ChangeNotifierProvider<OrderProvider>(
+          create: (context) => OrderProvider(),
+          child: OrderView(),
+        ),
+      );
+    case BookRideViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ChangeNotifierProvider<BookRideProvider>(
+          create: (BuildContext context) => BookRideProvider(),
+          child: BookRideView(),
+        ),
       );
 
-//    case SettingViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<SettingProvider>(
-//          create: (BuildContext context) => SettingProvider(),
-//          child: SettingView(),
-//        ),
-//      );
-//    case GameViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: GameView(),
-//      );
-//    case FeedbackViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<FeedbackProvider>(
-//          create: (BuildContext context) => FeedbackProvider(),
-//          child: FeedbackView(),
-//        ),
-//      );
-//    case HelpDeskViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: HelpDeskView(),
-//      );
-//    case LightCoinsViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<LightCoinsProvider>(
-//          create: (context) => LightCoinsProvider(),
-//          child: LightCoinsView(),
-//        ),
-//      );
-//    case AddCashViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<AddCashProvider>(
-//          create: (context) => AddCashProvider(),
-//          child: AddCashView(),
-//        ),
-//      );
-//    case PaymentHistoryViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: PaymentHistoryView(
-//          params: settings.arguments,
-//        ),
-//      );
-//    case TournamentHistoryViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: TournamentHistoryView(),
-//      );
-//
-//    case GameTournamentDescViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: GameTournamentDescView(),
-//      );
-//    case ReferralViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<ReferralProvider>(
-//          create: (context) => ReferralProvider(),
-//          child: ReferralView(),
-//        ),
-//      );
-//    case RewardsViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: RewardsView(),
-//      );
-//    case PrizeViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<PrizeProvider>(
-//          create: (BuildContext context) => PrizeProvider(),
-//          child: PrizeView(params: settings.arguments),
-//        ),
-//      );
-//    case KYCViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ChangeNotifierProvider<KYCProvider>(
-//          create: (BuildContext context) => KYCProvider(),
-//          child: KYCView(),
-//        ),
-//      );
-//    case ProfileViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ProfileView(),
-//      );
-//    case WithdrawCashViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: WithdrawCashView(),
-//      );
-//    case ImageViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: ImageView(
-//          params: settings.arguments,
-//        ),
-//      );
-//    case UnityViewRoute:
-//      return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: UnityView(settings.arguments as GameData),
-//      );
-
-  //New Version
     case OTPViewRoute:
       return _getPageRoute(
         routeName: settings.name,

@@ -79,29 +79,20 @@ class _OTPVerifyViewState extends State<OTPVerifyView> with BaseCommonWidget {
           child: Column(
             children: [
               Container(
-                height:SizeConfig.relativeHeight(35),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color:Hexcolor('#205cbe'),
-                ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
+                height: SizeConfig.relativeHeight(35),
+                width: double.infinity,
+                color: AppColors.blue,
               ),
               SizeConfig.verticalSpacer(2),
-              Text("We have sent otp to +91 7805977569\n Please go back if its not correct",
+              Text(
+                "We have sent OTP to +91 7805977569\nPlease go back if it\'s not correct",
                 style: TextStyle(
-                    color:Colors.blueGrey,
-                    fontFamily: AppTheme.interBold,
-                    fontStyle:  FontStyle.normal,
-                    fontSize: SizeConfig.setSp(18)
-                ),),
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interBold,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(16.0),
+                ),
+              ),
               SizeConfig.verticalSpacer(2),
               OTPTextField(
                 pinBoxHeight: SizeConfig.relativeHeight(5.97),
@@ -121,96 +112,18 @@ class _OTPVerifyViewState extends State<OTPVerifyView> with BaseCommonWidget {
               SizeConfig.verticalSpacer(3),
               Container(
                 height: SizeConfig.relativeHeight(7.0),
-                width:SizeConfig.relativeWidth(55),
+                width: SizeConfig.relativeWidth(55),
                 padding: EdgeInsets.only(
                   left: SizeConfig.relativeWidth(7.52),
                   right: SizeConfig.relativeWidth(7.52),
                 ),
-                child: CustomButton(
+                child: CustomBorderButton(
                   title: 'Login',
                   onPress: () {
-                    Navigator.pop(context);
                     model.redirectToPage(PermissionViewRoute);
-//
-                    //_showModalSheet(context, model);
                   },
                 ),
               ),
-
-
-//              Container(
-//                height:SizeConfig.relativeHeight(40),
-//                width:SizeConfig.relativeWidth(90),
-//                decoration: BoxDecoration(
-//                  color: Hexcolor("#ffc100"),
-//                  borderRadius: BorderRadius.circular(25),
-//                ),
-//                child: Column(
-//                  children: [
-//                    SizeConfig.verticalSpacer(2),
-//                    Text("Welcome to Drivars",
-//                      style: TextStyle(
-//                          color:Colors.blueGrey,
-//                          fontFamily: AppTheme.interBold,
-//                          fontStyle:  FontStyle.normal,
-//                          fontSize: SizeConfig.setSp(24)
-//                      ),),
-//                    Text("Please enter your phone number\nto continue",
-//                      style: TextStyle(
-//                          color:Colors.blueGrey,
-//                          fontFamily: AppTheme.interBold,
-//                          fontStyle:  FontStyle.normal,
-//                          fontSize: 14.0
-//                      ),),
-//                    SizeConfig.verticalSpacer(3),
-//                    Container(
-//                      width: SizeConfig.relativeWidth(55),
-//                      child: TextField(
-//                        keyboardType:TextInputType.number ,
-//                        decoration: InputDecoration(
-//                            hintText: "Enter your number"
-//                        ),
-//                      ),
-//                    ),
-//                    SizeConfig.verticalSpacer(3),
-//
-//                    Container(
-//                      height: SizeConfig.relativeHeight(7.39),
-//                      width:SizeConfig.relativeWidth(50),
-//
-//                      padding: EdgeInsets.only(
-//                        left: SizeConfig.relativeWidth(7.52),
-//                        right: SizeConfig.relativeWidth(7.52),
-//                      ),
-//                      child: CustomButton(
-//                        title: 'Send OTP',
-//                        onPress: () {
-//                          Navigator.pop(context);
-//                          model.redirectToPage(OTPViewRoute);
-////
-//                          //_showModalSheet(context, model);
-//                        },
-//                      ),
-//                    ),
-//
-////                   Container(
-////                     height:SizeConfig.relativeHeight(6),
-////                     width:SizeConfig.relativeWidth(30),
-////                     decoration: BoxDecoration(
-////                       color: Hexcolor("#205cbe"),
-////                       borderRadius: BorderRadius.circular(10),
-////                     ),
-////                     child: Align(
-////                         alignment:Alignment.center
-////                         ,child: Text("Send OTP",style: TextStyle(color: Colors.white),)),
-////                   ),
-//                    SizeConfig.verticalSpacer(2),
-//                    Text("Resend OTP",style: TextStyle(fontFamily: AppTheme.interBold),)
-//                  ],
-//                ),
-//
-//              )
-
             ],
           ),
         ),

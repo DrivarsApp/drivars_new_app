@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gogame/ui/shared/app_colors.dart';
 import 'package:gogame/ui/shared/app_theme.dart';
 import 'package:gogame/ui/shared/size_config.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -11,12 +10,11 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final String color;
 
-
   const CustomButton({
     this.title,
     this.onPress,
     this.isDisabled,
-    this.borderRadius = 10.0,
+    this.borderRadius = 8.0,
     this.color,
   });
 
@@ -25,23 +23,11 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: () => onPress(),
       child: Container(
-//        height:SizeConfig.relativeHeight(4),
-//                     width:SizeConfig.relativeWidth(30),
         decoration: BoxDecoration(
-          color: Hexcolor("#205cbe"),
-
+          color: AppColors.greyDarkColor,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius),
           ),
-//          boxShadow: [
-//            BoxShadow(
-//             // color: AppColors.greyShadow,
-//              offset: Offset(0, 0),
-//              blurRadius: 6,
-//              spreadRadius: 0,
-//            )
-//          ],
-        //  color: AppColors.blueColor,
         ),
         child: Center(
           child: Text(

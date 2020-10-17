@@ -53,8 +53,8 @@ class SizeConfig {
   }
 
   static double _textScaleFactor;
-  static num uiWidthPx = 412;
-  static num uiHeightPx = 870;
+  static num uiWidthPx = 352;
+  static num uiHeightPx = 647;
   static bool allowFontScaling = true;
 
   static double get scaleWidth => screenWidth / uiWidthPx;

@@ -3,20 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  //New Version
+  static const blackLight = const Color(0xff333333);
+  static const yellow = const Color(0xffffc100);
   static const white = const Color(0xffffffff);
   static const greyShadow = const Color(0x80999999);
   static const blueColor = const Color(0xff00aeff);
   static const black = const Color(0xff000000);
+  static const greyDarkColor = const Color(0xff555555);
 
   //New Version
 
   static const gradientPink = const Color(0xFFBB00FF);
   static const gradientBlue = const Color(0xFF4F38FF);
-  static const blue = const Color(0xFF0066FF);
+  static const blue = const Color(0xff205cbe);
   static const hintTextColor = const Color(0xffadadad);
   static const whiteColor = const Color(0xFFFFFFFF);
-  static const referralColor = const Color.fromRGBO(0, 251, 220, 0.1);
   static const blueGradientColors = [
     const Color(0xFF8AF2FF),
     const Color(0xFF1FA5FF),
@@ -53,14 +54,5 @@ class AppColors {
   static const orange = const Color(0xFFFF7744);
 
   static const buttonBlue = const Color(0xFF0099FF);
-  static const yellow = const Color(0xffdf00);
   static const blueback = const Color(0x205cbe);
-
-
-
-
-
-
-
-
 }

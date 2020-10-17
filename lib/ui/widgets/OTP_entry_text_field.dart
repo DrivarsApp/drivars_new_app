@@ -18,7 +18,7 @@ class ProvidedPinBoxDecoration {
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
-        border: Border.all(color: AppColors.blueColor, width: 2),
+        border: Border.all(color: AppColors.blue, width: 2),
         color: AppColors.white);
 
 //        border: Border.all(

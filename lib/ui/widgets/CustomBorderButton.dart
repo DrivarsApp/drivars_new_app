@@ -17,12 +17,9 @@ class CustomBorderButton extends StatelessWidget {
       child: Container(
         height: SizeConfig.relativeHeight(8.39),
         decoration: BoxDecoration(
+          color: AppColors.blue,
           borderRadius: BorderRadius.all(
             Radius.circular(10),
-          ),
-          border: Border.all(
-            color: AppColors.blueColor,
-            width: 2,
           ),
           boxShadow: [
             BoxShadow(
@@ -31,13 +28,12 @@ class CustomBorderButton extends StatelessWidget {
                 blurRadius: 6,
                 spreadRadius: 0)
           ],
-          color: AppColors.white,
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
-              color: AppColors.black,
+              color: AppColors.white,
               fontFamily: AppTheme.interBold,
               fontStyle: FontStyle.normal,
               fontSize: SizeConfig.setSp(16),

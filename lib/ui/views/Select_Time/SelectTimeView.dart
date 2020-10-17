@@ -1,7 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,25 +13,20 @@ import 'package:gogame/ui/shared/size_config.dart';
 import 'package:gogame/ui/views/BaseCommonWidget.dart';
 import 'package:gogame/ui/views/Select_Time/SelectTimeViewModel.dart';
 import 'package:gogame/ui/views/dashboard/DashboardViewModel.dart';
-import 'package:gogame/ui/widgets/AppTextField.dart';
-import 'package:gogame/ui/widgets/CustomBorderButton.dart';
 import 'package:gogame/ui/widgets/CustomButton.dart';
 import 'package:gogame/ui/widgets/PickupdropContainer.dart';
-import 'package:gogame/ui/widgets/PickupdropfilledContainer.dart';
 
 import 'package:gogame/viewmodels/base_model.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:intl/intl.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'dart:math' as math;
 
 class SelectTimeView extends StatefulWidget {
   @override
   _SelectTimeViewState createState() => _SelectTimeViewState();
 }
 
-class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,TickerProviderStateMixin {
+class _SelectTimeViewState extends State<SelectTimeView>
+    with BaseCommonWidget, TickerProviderStateMixin {
   TextEditingController usernameController = new TextEditingController();
 
   TabController _tabController;
@@ -50,9 +41,7 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
       length: 2,
       vsync: this,
     );
-
   }
-
 
   @override
   void dispose() {
@@ -92,32 +81,38 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
   Widget _getBaseContainer(SelectTimeViewModel model) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Hexcolor('#3E4E87'),
-        leading: Icon(Icons.menu,color:AppColors.white,),
-        title: Text("Hii",style: TextStyle(color: AppColors.white),),
+        backgroundColor: AppColors.blue,
+        leading: Icon(
+          Icons.menu,
+          color: AppColors.white,
+        ),
+        title: Text(
+          "Hii",
+          style: TextStyle(color: AppColors.white),
+        ),
       ),
 
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizeConfig.verticalSpacer(2.15),
-        Center(
-          child:
-          Pickup(),
-        ),
+            Center(
+              child: Pickup(),
+            ),
             SizeConfig.verticalSpacer(2),
             Container(
               height: SizeConfig.relativeHeight(80),
               width: SizeConfig.relativeWidth(87.10),
               decoration: BoxDecoration(
-                color: Hexcolor('#3E4E87'),
+                color: AppColors.white,
               ),
               child: Column(
                 children: [
                   Row(
                     children: [
                       Padding(
-                        padding:EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(4),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.relativeWidth(4),
                             vertical: SizeConfig.relativeHeight(2)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,12 +128,19 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -149,17 +151,24 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               width: SizeConfig.relativeWidth(37.10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:AppColors.white,
+                                color: AppColors.white,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -167,13 +176,13 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                           ],
                         ),
                       ),
-
                     ],
                   ),
                   Row(
                     children: [
                       Padding(
-                        padding:EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(4),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.relativeWidth(4),
                             vertical: SizeConfig.relativeHeight(2)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,12 +198,19 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -205,17 +221,24 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               width: SizeConfig.relativeWidth(37.10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:AppColors.white,
+                                color: AppColors.white,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -223,13 +246,13 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                           ],
                         ),
                       ),
-
                     ],
                   ),
                   Row(
                     children: [
                       Padding(
-                        padding:EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(4),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.relativeWidth(4),
                             vertical: SizeConfig.relativeHeight(2)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,12 +268,19 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -261,17 +291,24 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                               width: SizeConfig.relativeWidth(37.10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:AppColors.white,
+                                color: AppColors.white,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(MdiIcons.car,size: SizeConfig.relativeSize(25),color: AppColors.black,),
+                                  Icon(
+                                    MdiIcons.car,
+                                    size: SizeConfig.relativeSize(25),
+                                    color: AppColors.black,
+                                  ),
                                   SizeConfig.verticalSpacer(1.85),
-                                  Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.black,
-                                      fontFamily: AppTheme.interBold),
+                                  Text(
+                                    "INR 200.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.setSp(16),
+                                        color: AppColors.black,
+                                        fontFamily: AppTheme.interBold),
                                   ),
                                 ],
                               ),
@@ -279,10 +316,8 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                           ],
                         ),
                       ),
-
                     ],
                   ),
-
                   Row(
                     children: [
                       SizeConfig.horizontalSpacer(5.15),
@@ -291,8 +326,7 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                         width: SizeConfig.relativeWidth(20.40),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: AppColors.greyShadow
-                        ),
+                            color: AppColors.greyShadow),
                         child: CustomButton(
                           title: 'Manual',
                           onPress: () {},
@@ -313,7 +347,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
                           },
                         ),
                       ),
-
                     ],
                   ),
                 ],
@@ -322,17 +355,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
           ],
         ),
       ),
-
-
-
-
-
-
-
-
-
-
-
 
 //    appBar: AppBar(
 //        elevation: 0,
@@ -667,44 +689,41 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
 ////              ),
 //            ])
 
-
 //        ),
-
-      );
-
+    );
   }
 
-
-  Widget _currentride(DashboardViewModel model){
+  Widget _currentride(DashboardViewModel model) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65),
-      vertical: SizeConfig.relativeHeight(1)),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.relativeWidth(3.65),
+          vertical: SizeConfig.relativeHeight(1)),
       child: Container(
         padding: EdgeInsets.only(top: SizeConfig.relativeHeight(2)),
         height: SizeConfig.relativeHeight(13.91),
         width: SizeConfig.relativeWidth(97.10),
         decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius:BorderRadius.circular(8)
-        ),
-        child:  Column(
+            color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
+        child: Column(
           children: [
             Row(
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("INR 1000"),
                 SizeConfig.horizontalSpacer(50),
-             Container(
-               height: SizeConfig.relativeHeight(5),
-               width: SizeConfig.relativeWidth(20),
-               child: RaisedButton(
-                child: Text('Start'),
-                color: Colors.purpleAccent,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                 onPressed: () {model.redirectToPage(SelectCarViewRoute);},
-                 ),
-             ),
+                Container(
+                  height: SizeConfig.relativeHeight(5),
+                  width: SizeConfig.relativeWidth(20),
+                  child: RaisedButton(
+                    child: Text('Start'),
+                    color: Colors.purpleAccent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    onPressed: () {
+                      model.redirectToPage(SelectCarViewRoute);
+                    },
+                  ),
+                ),
               ],
             ),
             SizeConfig.verticalSpacer(5),
@@ -717,7 +736,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
               ],
             ),
             Row(
-
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("Malleswaram,Bangalore"),
@@ -726,7 +744,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
               ],
             ),
             Row(
-
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("2:30 PM"),
@@ -736,14 +753,11 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
             )
           ],
         ),
-
       ),
     );
-
   }
 
-
-  Widget _pastride(){
+  Widget _pastride() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65)),
       child: Container(
@@ -751,10 +765,8 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
         height: SizeConfig.relativeHeight(20.91),
         width: SizeConfig.relativeWidth(97.10),
         decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius:BorderRadius.circular(8)
-        ),
-        child:  Column(
+            color: Colors.blueGrey, borderRadius: BorderRadius.circular(8)),
+        child: Column(
           children: [
             Row(
               children: [
@@ -766,7 +778,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
             ),
             SizeConfig.verticalSpacer(5),
             Row(
-
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("From"),
@@ -775,7 +786,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
               ],
             ),
             Row(
-
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("Malleswaram,Bangalore"),
@@ -784,7 +794,6 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
               ],
             ),
             Row(
-
               children: [
                 SizeConfig.horizontalSpacer(4),
                 Text("2:30 PM"),
@@ -794,14 +803,9 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
             )
           ],
         ),
-
       ),
     );
-
   }
-
-
-
 
 //  Widget _currentride(DashboardViewModel model){
 //    return Container(
@@ -1200,8 +1204,7 @@ class _SelectTimeViewState extends State<SelectTimeView> with BaseCommonWidget,T
 //            : null,
 //      ),
 //    );
-  }
-
+}
 
 class KYCTabCard extends StatelessWidget {
   KYCTabCard({
@@ -1268,7 +1271,7 @@ class KYCTabCard extends StatelessWidget {
 //                    width: SizeConfig.relativeWidth(10.22),
 //                    height: SizeConfig.relativeHeight(5.75),
 //                  ),
-                ),
+                    ),
                 SizeConfig.horizontalSpacer(1.94),
                 Text(
                   title,
@@ -1309,9 +1312,4 @@ class KYCTabCard extends StatelessWidget {
       ),
     );
   }
-
-
 }
-
-
-

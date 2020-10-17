@@ -1,40 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gogame/constants/API.dart';
-import 'package:gogame/constants/images.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:gogame/constants/route_names.dart';
-import 'package:gogame/models/user_provider.dart';
+
 import 'package:gogame/ui/shared/app_colors.dart';
 import 'package:gogame/ui/shared/app_theme.dart';
 import 'package:gogame/ui/shared/size_config.dart';
 import 'package:gogame/ui/views/BaseCommonWidget.dart';
 import 'package:gogame/ui/views/dashboard/DashboardViewModel.dart';
-import 'package:gogame/ui/widgets/AppTextField.dart';
-import 'package:gogame/ui/widgets/CustomBorderButton.dart';
 import 'package:gogame/ui/widgets/CustomButton.dart';
-import 'package:gogame/ui/widgets/PickupdropContainer.dart';
-
+import 'package:gogame/ui/widgets/appDrawer.dart';
+import 'package:gogame/ui/widgets/textfieldcustom.dart';
 import 'package:gogame/viewmodels/base_model.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider_architecture/viewmodel_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'dart:math' as math;
 
 class DashboardView extends StatefulWidget {
   @override
   _DashboardViewState createState() => _DashboardViewState();
 }
 
-class _DashboardViewState extends State<DashboardView> with BaseCommonWidget,TickerProviderStateMixin {
-  TextEditingController usernameController = new TextEditingController();
+class _DashboardViewState extends State<DashboardView>
+    with BaseCommonWidget, TickerProviderStateMixin {
+  final GlobalKey scaffoldKey = GlobalKey();
+  TextEditingController _pickupLocationController = TextEditingController();
+  TextEditingController _destinationController = TextEditingController();
 
   TabController _tabController;
 
@@ -48,9 +40,7 @@ class _DashboardViewState extends State<DashboardView> with BaseCommonWidget,Tic
       length: 2,
       vsync: this,
     );
-
   }
-
 
   @override
   void dispose() {
@@ -89,784 +79,746 @@ class _DashboardViewState extends State<DashboardView> with BaseCommonWidget,Tic
 
   Widget _getBaseContainer(DashboardViewModel model) {
     return Scaffold(
-
+      key: scaffoldKey,
+      backgroundColor: AppColors.blue,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Icon(Icons.menu,color:AppColors.white,),
-        title: Text("Hii",style: TextStyle(color: AppColors.white),),
-      ),
-//      appBar: AppBar(
-//        elevation: 0,
-//        centerTitle: true,
-//        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-//        title:Text("Hello"),
-//
-//        actions: <Widget>[
-//          Container(
-//            padding: EdgeInsets.only(
-//              top: SizeConfig.relativeHeight(2),
-//              bottom: SizeConfig.relativeHeight(2),
-//              right: SizeConfig.relativeWidth(3.64),
-//            ),
-//            child: ClipRRect(
-//              borderRadius: BorderRadius.circular(5.0),
-//              child: Container(
-//                width: SizeConfig.relativeWidth(7.74),
-//                height: SizeConfig.relativeWidth(5.74),
-//                child: CachedNetworkImage(
-//                  imageUrl: ImageNetwork.desertImage,
-//                  fit: BoxFit.fill,
-//                ),
-//              ),
-//            ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: AppColors.yellow,
+//        leading: InkWell(
+//          onTap: () {},
+//          child: Icon(
+//            MdiIcons.viewDashboardOutline,
+//            size: SizeConfig.relativeWidth(7.3),
+//            color: AppColors.white,
 //          ),
-//        ],
-//      ),
-
+//        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.notifications,
+              color: AppColors.white,
+              size: SizeConfig.relativeWidth(7.3),
+            ),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          //  padding: EdgeInsets.zero,
+          children: <Widget>[
+            createDrawerHeader(),
+            //Divider(),
+            createDrawerBodyItem(
+              icon: Icons.home,
+              text: 'Book Ride',
+              onTap: () {
+                model.redirectToPage(BookRideViewRoute);
+              },
+            ),
+            createDrawerBodyItem(
+                icon: Icons.directions_car, text: 'My Drivers'),
+            createDrawerBodyItem(
+              icon: Icons.credit_card,
+              text: 'Payments',
+              onTap: () {
+                Navigator.pop(context);
+                model.redirectToPage(PaymentViewRoute);
+              },
+            ),
+            //Divider(),
+            createDrawerBodyItem(
+              icon: Icons.notifications_active,
+              text: 'Refer & Earn',
+              onTap: () {
+                Navigator.pop(context);
+                model.redirectToPage(ReferViewRoute);
+              },
+            ),
+            Divider(),
+            createDrawerBodyItem(icon: Icons.help, text: 'Help'),
+            createDrawerBodyItem(icon: Icons.contact_phone, text: 'Policies'),
+            createDrawerBodyItem(
+                icon: Icons.supervised_user_circle, text: 'About us'),
+            createDrawerBodyItem(icon: Icons.exit_to_app, text: 'Logout'),
+            SizeConfig.verticalSpacer(20),
+            ListTile(
+              title: Align(
+                alignment: Alignment.bottomRight,
+                child: Text('V 1.0.0'),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
-          height:  MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Hexcolor('#205cbe'),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.relativeWidth(2.42),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizeConfig.verticalSpacer(2.15),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65)),
-                child: Container(
-                  padding: EdgeInsets.only(top: SizeConfig.relativeHeight(2)),
-                  height: SizeConfig.relativeHeight(15.81),
-                  width: SizeConfig.relativeWidth(97.10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-//                      color: Hexcolor('#205cbe'),
-                    borderRadius:BorderRadius.circular(8)
-                  ),
-                  child:  Column( mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: SizeConfig.relativeWidth(5.95)),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                              "Select ride type ",
-                              style:  TextStyle(
-                                  color:  AppColors.lighttext,
-                                  fontFamily: AppTheme.interBold,
-                                  fontStyle:  FontStyle.normal,
-                                  fontSize: SizeConfig.setSp(16)
-                              )
-                          ),
-                        ),
-
-                      ),SizeConfig.verticalSpacer(1.8),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(6.14)),
-                       child:  Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: <Widget>[
-                           ButtonCustom(
-                            // imageName: ImagesPaths.iconPANCard,
-                             title: 'One way Drop',
-                             showIndicator: model.cashSelected,
-                             onTap: () {
-                               model.menuSelected(true);
-                             },
-                           ),
-                           ButtonCustom(
-                            // imageName: ImagesPaths.iconAadharCard,
-                             title: 'Round Trip Return',
-                             showIndicator: !model.cashSelected,
-                             onTap: () {
-                               model.menuSelected(false);
-                             },
-                           ),
-                         ],
-                       ),
-//                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    children: [
-//
-////                      Container(
-////                        height: SizeConfig.relativeHeight(3.67),
-////                        width: SizeConfig.relativeWidth(31.55),
-////                        decoration:BoxDecoration(
-////                          color: Hexcolor("#ffc100"),
-////                          borderRadius: BorderRadius.circular(10)
-////                        ),
-////                        child: Align(
-////                            alignment:Alignment.center,
-////                            child: Text("One Way Ride")),
-////                      ),
-////                      Container(
-////                        height: SizeConfig.relativeHeight(3.67),
-////                        width: SizeConfig.relativeWidth(31.55),
-////                        decoration:BoxDecoration(
-////                            color: Hexcolor("#ffc100"),
-////                            borderRadius: BorderRadius.circular(10)
-////                        ),
-////                        child: Align(
-////                            alignment:Alignment.center,
-////                            child: Text("Round Trip")),
-////                      )
-//                    ],
-//                  ),
+              SizeConfig.verticalSpacer(1.60),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.relativeHeight(1),
+                  horizontal: SizeConfig.relativeWidth(3.64),
                 ),
-
-
-
-//                    Row(
-//
-//                      children: <Widget>[
-//                        SizeConfig.horizontalSpacer(7),
-//                        KYCTabCard(
-//                          //imageName: ImagesPaths.iconPANCard,
-//                          title: 'One Way',
-//                          showIndicator: model.cashSelected,
-//                          onTap: () {
-//                            model.menuSelected(true);
-//                          },
-//                        ),
-//                        SizeConfig.horizontalSpacer(17),
-//                        KYCTabCard(
-//                          //imageName: ImagesPaths.iconAadharCard,
-//                          title: 'Round Trip',
-//                          showIndicator: !model.cashSelected,
-//                          onTap: () {
-//                            model.menuSelected(false);
-//                          },
-//                        ),
-//                        SizeConfig.horizontalSpacer(2)
-//
-//                      ],
-//                    ),
-                    //SizeConfig.verticalSpacer(2),
-
-//                     SizeConfig.verticalSpacer(5.4),
-//
-//                    Container(
-//                      height: SizeConfig.relativeHeight(12.81),
-//                      width: SizeConfig.relativeWidth(97.10),
-//                      decoration: BoxDecoration(
-//                        color: Colors.white
-//                      ),
-//
-//                      child: Row(
-//                        children: [
-//                          SizeConfig.horizontalSpacer(7),
-//                          Image(
-//                            image: AssetImage(ImagesPaths.icongoal),
-//                            width: SizeConfig.relativeWidth(6.99),
-//                            height: SizeConfig.relativeHeight(8.40),
-//                          ),
-//
-//                          SizeConfig.horizontalSpacer(7),
-//                          Container(
-//                            height: SizeConfig.relativeHeight(6),
-//                            width: SizeConfig.relativeWidth(60),
-//                              child: TextField(
-//                                decoration: InputDecoration(
-//                                  filled: true,
-//                                  fillColor: Colors.grey[200],
-//                                  border: OutlineInputBorder(
-////                                  borderSide: BorderSide(
-////                                    color: Hexcolor('#3E4E87'),
-////                                  ),
-//                                    borderRadius: BorderRadius.circular(10.0),
-//                                  ),
-//                                  hintText: "Pickup Location",
-//                                ),
-//                              )
-//                          )
-//                        ],
-//                      ),
-//                    ),
-//                    SizeConfig.verticalSpacer(1),
-//                    Row(
-//                      children: [
-//                        SizeConfig.horizontalSpacer(7),
-//                        Image(
-//                          image: AssetImage(ImagesPaths.iconplaceholder),
-//                          width: SizeConfig.relativeWidth(6.99),
-//                          height: SizeConfig.relativeHeight(8.40),
-//                        ),
-//
-//                        SizeConfig.horizontalSpacer(7),
-//                        Container(
-//                          height: SizeConfig.relativeHeight(6),
-//                          width: SizeConfig.relativeWidth(60),
-//                          child: TextField(
-//                            decoration: InputDecoration(
-//                              filled: true,
-//                              fillColor: Colors.grey[200],
-//                              border: OutlineInputBorder(
-//                                borderSide: BorderSide(
-//                                  color: Colors.blue,
-//                                ),
-//                                borderRadius: BorderRadius.circular(10.0),
-//                              ),
-//                              hintText: "Drop Location",
-//                            ),
-//                          ),
-//                        )
-//                      ],
-//                    ),
-
-
-                    ],
+                width: double.infinity,
+                height: SizeConfig.relativeHeight(11.90),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.0),
                   ),
-
+                  color: AppColors.white,
                 ),
-              ),
-              SizeConfig.verticalSpacer(2),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65)),
-                child: Container(
-                  height: SizeConfig.relativeHeight(21.81),
-                  width: SizeConfig.relativeWidth(97.10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal:SizeConfig.relativeWidth(3.65) ),
-                    child: Column(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Select ride type ",
+                      style: TextStyle(
+                        color: AppColors.blackLight,
+                        fontFamily: AppTheme.interBold,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(16.0),
+                      ),
+                    ),
+                    SizeConfig.verticalSpacer(1.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Icon(MdiIcons.pin),
-                            SizeConfig.horizontalSpacer(6.06),
-                            Container(
-                              height: SizeConfig.relativeHeight(6),
-                              width: SizeConfig.relativeWidth(65.92),
-                                child: TextField(
-                                  decoration: InputDecoration(
-//                        filled: true,
-//                        fillColor: Colors.grey[200],
-//                        border: OutlineInputBorder(
-////                                  borderSide: BorderSide(
-////                                    color: Hexcolor('#3E4E87'),
-////                                  ),
-//                          borderRadius: BorderRadius.circular(10.0),
-//                        ),
-                                    hintText: "Please enter Pickup location",
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(MdiIcons.pin),
-                            SizeConfig.horizontalSpacer(6.06),
-                            Container(
-                                height: SizeConfig.relativeHeight(6),
-                                width: SizeConfig.relativeWidth(65.92),
-                                child: TextField(
-                                  decoration: InputDecoration(
-//                        filled: true,
-//                        fillColor: Colors.grey[200],
-//                        border: OutlineInputBorder(
-////                                  borderSide: BorderSide(
-////                                    color: Hexcolor('#3E4E87'),
-////                                  ),
-//                          borderRadius: BorderRadius.circular(10.0),
-//                        ),
-                                    hintText: "Please enter destination Location",
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        SizeConfig.verticalSpacer(2),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(2.14)),
-                          child:  Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              ButtonCustom(
-                                // imageName: ImagesPaths.iconPANCard,
-                                title: 'In-City',
-                                showIndicator: model.cashSelected,
-                                onTap: () {
-                                  model.menuSelected(true);
-                                },
-                              ),
-                              SizeConfig.horizontalSpacer(5.28),
-                              ButtonCustom(
-                                // imageName: ImagesPaths.iconAadharCard,
-                                title: 'OutStation',
-                                showIndicator: !model.cashSelected,
-                                onTap: () {
-                                  model.menuSelected(false);
-                                },
-                              ),
-                            ],
+                        Container(
+                          width: SizeConfig.relativeWidth(36.93),
+                          height: SizeConfig.relativeHeight(4.94),
+                          child: CustomButton(
+                            title: 'One Way',
+                            onPress: () {},
                           ),
-//                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                    children: [
-//
-////                      Container(
-////                        height: SizeConfig.relativeHeight(3.67),
-////                        width: SizeConfig.relativeWidth(31.55),
-////                        decoration:BoxDecoration(
-////                          color: Hexcolor("#ffc100"),
-////                          borderRadius: BorderRadius.circular(10)
-////                        ),
-////                        child: Align(
-////                            alignment:Alignment.center,
-////                            child: Text("One Way Ride")),
-////                      ),
-////                      Container(
-////                        height: SizeConfig.relativeHeight(3.67),
-////                        width: SizeConfig.relativeWidth(31.55),
-////                        decoration:BoxDecoration(
-////                            color: Hexcolor("#ffc100"),
-////                            borderRadius: BorderRadius.circular(10)
-////                        ),
-////                        child: Align(
-////                            alignment:Alignment.center,
-////                            child: Text("Round Trip")),
-////                      )
-//                    ],
-//                  ),
+                        ),
+                        Container(
+                          width: SizeConfig.relativeWidth(36.93),
+                          height: SizeConfig.relativeHeight(4.94),
+                          child: CustomButton(
+                            title: 'Round Trip',
+                            onPress: () {},
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
-
-          TabBar(
-                controller: _tabController,
-                labelColor: AppColors.white,
-                labelStyle: TextStyle(
-                  fontSize: SizeConfig.setSp(12),
-                  fontFamily: AppTheme.interBold,
+              SizeConfig.verticalSpacer(3.09),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.relativeHeight(1.64),
+                  horizontal: SizeConfig.relativeWidth(3.64),
                 ),
-                indicatorColor: AppColors.white,
-                indicatorPadding: EdgeInsets.zero,
-                indicatorWeight: 2.0,
-                indicatorSize:  TabBarIndicatorSize.label,
-                labelPadding: EdgeInsets.zero,
-                tabs: [
-                  Tab(
-                    child: Text(
-                      'Current Ride',
-                      maxLines: 1,
-                      softWrap: true,
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: SizeConfig.setSp(16),
-                        fontFamily: AppTheme.interBold,
-                      ),
-                    ),
+                width: double.infinity,
+                height: SizeConfig.relativeHeight(23.02),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.0),
                   ),
-                  Tab(
-                    child: Text(
-                      'Past Rides',
-                      maxLines: 1,
-                      softWrap: true,
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: SizeConfig.setSp(16),
-                        fontFamily: AppTheme.interBold,
-                      ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.person_pin_circle,
+                          size: SizeConfig.relativeWidth(7.3),
+                          color: AppColors.blackLight,
+                        ),
+                        SizeConfig.horizontalSpacer(6.5),
+                        Expanded(
+                          child: Container(
+                            height: SizeConfig.relativeHeight(9.13),
+                            width: SizeConfig.relativeWidth(82.63),
+                            child: Neumorphic(
+                              margin: EdgeInsets.symmetric(
+                                vertical: SizeConfig.relativeHeight(1.13),
+                                horizontal: SizeConfig.relativeWidth(3.64),
+                              ),
+                              style: NeumorphicStyle(
+                                color: Colors.white,
+                                shadowDarkColor: Colors.black,
+                                depth: NeumorphicTheme.embossDepth(context),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                vertical: SizeConfig.relativeHeight(2),
+                                horizontal: SizeConfig.relativeWidth(3.64),
+                              ),
+                              child: TextField(
+                                controller: _pickupLocationController,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: 'Please enter your Pickup Location',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.flag,
+                          size: SizeConfig.relativeWidth(7.3),
+                          color: AppColors.blackLight,
+                        ),
+                        SizeConfig.horizontalSpacer(6.5),
+                        Expanded(
+                          child: Container(
+                            height: SizeConfig.relativeHeight(9.13),
+                            width: SizeConfig.relativeWidth(82.63),
+                            child: Neumorphic(
+                              margin: EdgeInsets.symmetric(
+                                vertical: SizeConfig.relativeHeight(1.13),
+                                horizontal: SizeConfig.relativeWidth(3.64),
+                              ),
+                              style: NeumorphicStyle(
+                                color: Colors.white,
+                                shadowDarkColor: Colors.black,
+                                depth: NeumorphicTheme.embossDepth(context),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                vertical: SizeConfig.relativeHeight(2),
+                                horizontal: SizeConfig.relativeWidth(3.64),
+                              ),
+                              child: TextField(
+                                controller: _destinationController,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: 'Please enter Destination Location',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizeConfig.verticalSpacer(1.60),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RideTabs(
+                    title: 'Current Ride',
+                    showIndicator: model.tabSelected,
+                    onTap: () {
+                      model.updateTabSelected(true);
+                    },
+                  ),
+                  RideTabs(
+                    title: 'Past Ride',
+                    showIndicator: !model.tabSelected,
+                    onTap: () {
+                      model.updateTabSelected(false);
+                    },
                   ),
                 ],
               ),
-              SizeConfig.verticalSpacer(2.15),
-              Container(
-                height: SizeConfig.relativeHeight(26),
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _noride(),
-                    _noride(),
-
-                   // _currentride(model),
-                   // _pastride(),
-                  ],
-
-                ),
-              ),
-              SizeConfig.verticalSpacer(2),
-                 Padding(
-                   padding:EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(4)),
-                   child: Container(
-                     height: SizeConfig.relativeHeight(15.81),
-                     width: SizeConfig.relativeWidth(97.10),
-                     decoration: BoxDecoration(
-                       color: Colors.white
-                     ),
-                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: SizeConfig.relativeHeight(17.91),
-                          width: SizeConfig.relativeWidth(43.10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            color: Hexcolor('#205cbe'),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("INR 200.",textAlign:TextAlign.center,style: TextStyle(
-                                  fontSize: SizeConfig.setSp(16),
-                                  color: AppColors.white,
-                                  fontFamily: AppTheme.interBold),
-                              ),
-                              SizeConfig.verticalSpacer(1.85),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("INR 200.",style: TextStyle(
-                                      fontSize: SizeConfig.setSp(16),
-                                      color: AppColors.white,
-                                      fontFamily: AppTheme.interBold),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.account_balance_wallet,
-                                      color: AppColors.black,
-                                      size: SizeConfig.relativeSize(10.0),
-                                    ),
-                                    onPressed: (){},
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: SizeConfig.relativeHeight(17.91),
-                          width: SizeConfig.relativeWidth(43.10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            color:Colors.white,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Drivers Package",textAlign:TextAlign.center,style: TextStyle(
-                                  fontSize: SizeConfig.setSp(16),
-                                  color: AppColors.white,
-                                  fontFamily: AppTheme.interBold),
-                              ),
-                              SizeConfig.verticalSpacer(1.85),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.account_balance_wallet,
-                                      color: AppColors.black,
-                                      size: SizeConfig.relativeSize(10.0),
-                                    ),
-                                    onPressed: (){model.redirectToPage(SplashViewRoute);},
-                                  )
-
-//                              Icon(MdiIcons.walletOutline,size: SizeConfig.relativeSize(24),
-//                                color: AppColors.white,),
-
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                ),
-                   ),
-                 ),
+              SizeConfig.verticalSpacer(1.60),
+              model.tabSelected ? _currentRideTab(model) : _pastRideTab(model),
+              SizeConfig.verticalSpacer(1.60),
+              _package(model),
+              SizeConfig.verticalSpacer(1.60),
             ],
           ),
         ),
       ),
-
     );
-
   }
 
-
-  Widget _noride(){
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65),
-          vertical: SizeConfig.relativeHeight(1)),
-      child: Container(
-        padding: EdgeInsets.only(top: SizeConfig.relativeHeight(4)),
-        height: SizeConfig.relativeHeight(13.91),
-        width: SizeConfig.relativeWidth(97.10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius:BorderRadius.circular(8)
+  Widget _currentRideTab(DashboardViewModel model) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.relativeHeight(1.64),
+        //horizontal: SizeConfig.relativeWidth(3.64),
+      ),
+      width: double.infinity,
+      height: SizeConfig.relativeHeight(18.61),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
         ),
-        child:  Column(
-          children: [
-           Icon(Icons.person,size: SizeConfig.relativeSize(25),),
-            SizeConfig.verticalSpacer(3.0),
-            Text(
-                "Currently you have not hired driver ",
+        color: AppColors.white,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "One way",
                 style: TextStyle(
-                    color:  Hexcolor('#555555'),
-                    fontFamily: AppTheme.interBold,
-                    fontStyle:  FontStyle.normal,
-                    fontSize: SizeConfig.setSp(14)
-                )
-            )
-          ],
-        ),
-
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+              Text(
+                "Outstation",
+                style: TextStyle(
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+              Text(
+                "INR",
+                style: TextStyle(
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: AppColors.greyDarkColor,
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.person_pin_circle,
+                      size: SizeConfig.relativeWidth(7.3),
+                    ),
+                    Icon(
+                      Icons.flag,
+                      size: SizeConfig.relativeWidth(7.3),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "RR Nagar Bangalore Karnataka",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                    SizeConfig.verticalSpacer(1.3),
+                    Text(
+                      "Arjun Beach Goa",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "18-Sep-2020",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                    SizeConfig.verticalSpacer(1.3),
+                    Text(
+                      "12:54 AM",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
-
   }
 
-  Widget _currentride(DashboardViewModel model){
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65),
-      vertical: SizeConfig.relativeHeight(1)),
-      child: Container(
-        padding: EdgeInsets.only(top: SizeConfig.relativeHeight(2)),
-        height: SizeConfig.relativeHeight(13.91),
-        width: SizeConfig.relativeWidth(97.10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius:BorderRadius.circular(8)
-        ),
-        child:  Column(
-          children: [
-            Row(
+  Widget _pastRideTab(DashboardViewModel model) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.relativeHeight(1.64),
+        //horizontal: SizeConfig.relativeWidth(3.64),
+      ),
+      width: double.infinity,
+      height: SizeConfig.relativeHeight(18.61),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        color: AppColors.white,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "One way",
+                style: TextStyle(
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+              Text(
+                "Outstation",
+                style: TextStyle(
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+              Text(
+                "INR",
+                style: TextStyle(
+                  color: AppColors.greyDarkColor,
+                  fontFamily: AppTheme.interRegular,
+                  fontStyle: FontStyle.normal,
+                  fontSize: SizeConfig.setSp(14.0),
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: AppColors.greyDarkColor,
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("INR 1000",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(45),
-             Container(
-               height: SizeConfig.relativeHeight(5),
-               width: SizeConfig.relativeWidth(20),
-               child: RaisedButton(
-                child: Text('Start'),
-                color: Colors.grey,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                 onPressed: () {model.redirectToPage(SelectCarViewRoute);},
-                 ),
-             ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.person_pin_circle,
+                      size: SizeConfig.relativeWidth(7.3),
+                    ),
+                    Icon(
+                      Icons.flag,
+                      size: SizeConfig.relativeWidth(7.3),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "RR Nagar Bangalore Karnataka",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                    SizeConfig.verticalSpacer(1.3),
+                    Text(
+                      "Arjun Beach Goa",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "18-Sep-2020",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                    SizeConfig.verticalSpacer(1.3),
+                    Text(
+                      "19-Sep-2020",
+                      style: TextStyle(
+                        color: AppColors.greyDarkColor,
+                        fontFamily: AppTheme.interRegular,
+                        fontStyle: FontStyle.normal,
+                        fontSize: SizeConfig.setSp(14.0),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-            SizeConfig.verticalSpacer(5),
-            Row(
-              children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("From",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(40),
-                Text("To",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
-              ],
-            ),
-            Row(
-
-              children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("Malleswaram,Bangalore",style: TextStyle(
-                    fontSize: SizeConfig.setSp(14),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(10),
-                Text("RR Nagar, Bangalore",style: TextStyle(
-                    fontSize: SizeConfig.setSp(14),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
-              ],
-            ),
-            Row(
-
-              children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("2:30 PM",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(34),
-                Text("9:30 PM",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
-              ],
-            )
-          ],
-        ),
-
+          ),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//            children: [
+//              Icon(
+//                Icons.person_pin_circle,
+//                size: SizeConfig.relativeWidth(7.3),
+//                color: AppColors.blackLight,
+//              ),
+//              Text(
+//                "RR Nagar Bangalore Karnataka",
+//                style: TextStyle(
+//                  color: AppColors.greyDarkColor,
+//                  fontFamily: AppTheme.interRegular,
+//                  fontStyle: FontStyle.normal,
+//                  fontSize: SizeConfig.setSp(14.0),
+//                ),
+//              ),
+//              Text(
+//                "18-Sep-2020",
+//                style: TextStyle(
+//                  color: AppColors.greyDarkColor,
+//                  fontFamily: AppTheme.interRegular,
+//                  fontStyle: FontStyle.normal,
+//                  fontSize: SizeConfig.setSp(14.0),
+//                ),
+//              ),
+//            ],
+//          ),
+//          SizeConfig.verticalSpacer(1),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//            children: [
+//              Icon(
+//                Icons.person_pin_circle,
+//                size: SizeConfig.relativeWidth(7.3),
+//                color: AppColors.blackLight,
+//              ),
+//              Text(
+//                "RR Nagar Bangalore Karnataka",
+//                style: TextStyle(
+//                  color: AppColors.greyDarkColor,
+//                  fontFamily: AppTheme.interRegular,
+//                  fontStyle: FontStyle.normal,
+//                  fontSize: SizeConfig.setSp(14.0),
+//                ),
+//              ),
+//              Text(
+//                "12:54 AM",
+//                style: TextStyle(
+//                  color: AppColors.greyDarkColor,
+//                  fontFamily: AppTheme.interRegular,
+//                  fontStyle: FontStyle.normal,
+//                  fontSize: SizeConfig.setSp(14.0),
+//                ),
+//              ),
+//            ],
+//          ),
+        ],
       ),
     );
-
   }
 
-
-     Widget _pastride(){
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.relativeWidth(3.65)),
-      child: Container(
-        padding: EdgeInsets.only(top: SizeConfig.relativeHeight(2)),
-        height: SizeConfig.relativeHeight(13.91),
-        width: SizeConfig.relativeWidth(97.10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius:BorderRadius.circular(8)
+  Widget _package(DashboardViewModel model) {
+    return Container(
+      width: double.infinity,
+      height: SizeConfig.relativeHeight(23.18),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
         ),
-        child:  Column(
-          children: [
-            Row(
+        color: AppColors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: SizeConfig.relativeWidth(31.37),
+            height: SizeConfig.relativeHeight(15.91),
+            decoration: BoxDecoration(
+              color: AppColors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("INR 1000",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
+                Icon(
+                  MdiIcons.walletOutline,
+                  color: AppColors.white,
+                  size: SizeConfig.relativeWidth(10.3),
+                ),
+                Text(
+                  "INR 500.00",
+                  style: TextStyle(
                     color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(45),
-                Text("Completed",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: Colors.grey,
-                    fontFamily: AppTheme.interBold),),
+                    fontFamily: AppTheme.interRegular,
+                    fontStyle: FontStyle.normal,
+                    fontSize: SizeConfig.setSp(18.0),
+                  ),
+                ),
+                Text(
+                  "Driver Wallet ",
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontFamily: AppTheme.interRegular,
+                    fontStyle: FontStyle.normal,
+                    fontSize: SizeConfig.setSp(14.0),
+                  ),
+                ),
               ],
             ),
-            SizeConfig.verticalSpacer(5),
-            Row(
-
+          ),
+          Container(
+            width: SizeConfig.relativeWidth(31.37),
+            height: SizeConfig.relativeHeight(15.91),
+            decoration: BoxDecoration(
+              color: AppColors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("From",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
+                Icon(
+                  MdiIcons.cubeOutline,
+                  color: AppColors.white,
+                  size: SizeConfig.relativeWidth(10.3),
+                ),
+                Text(
+                  "Packages",
+                  style: TextStyle(
                     color: AppColors.white,
-
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(40),
-                Text("To",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
+                    fontFamily: AppTheme.interRegular,
+                    fontStyle: FontStyle.normal,
+                    fontSize: SizeConfig.setSp(18.0),
+                  ),
+                ),
               ],
             ),
-            Row(
-
-              children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("Malleswaram,Bangalore",style: TextStyle(
-                    fontSize: SizeConfig.setSp(14),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(10),
-                Text("RR Nagar, Bangalore",style: TextStyle(
-                    fontSize: SizeConfig.setSp(14),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
-              ],
-            ),
-            Row(
-
-              children: [
-                SizeConfig.horizontalSpacer(4),
-                Text("2:30 PM",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),),
-                SizeConfig.horizontalSpacer(34),
-                Text("9:30 PM",style: TextStyle(
-                    fontSize: SizeConfig.setSp(16),
-                    color: AppColors.white,
-                    fontFamily: AppTheme.interBold),)
-              ],
-            )
-          ],
-        ),
-
+          ),
+        ],
       ),
     );
-
   }
 
+  Widget createDrawerBodyItem(
+      {IconData icon, String text, GestureTapCallback onTap}) {
+    return ListTile(
+      title: Row(
+        children: <Widget>[
+          Icon(icon),
+          SizeConfig.horizontalSpacer(4.5),
+          Text(
+            text,
+            style: TextStyle(
+              color: AppColors.greyDarkColor,
+              fontFamily: AppTheme.interRegular,
+              fontStyle: FontStyle.normal,
+              fontSize: SizeConfig.setSp(18.0),
+            ),
+          ),
+        ],
+      ),
+      onTap: onTap,
+    );
+  }
+
+  Widget createDrawerHeader() {
+    return Container(
+      height: SizeConfig.relativeHeight(15.45),
+      child: DrawerHeader(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircleAvatar(
+                radius: 35,
+                backgroundColor: Color(0xffFDCF09),
+                child: CircleAvatar(
+                  radius: 35,
+                ),
+              ),
+              SizeConfig.verticalSpacer(4),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "jyoti sharma",
+                    style: TextStyle(
+                      color: AppColors.greyDarkColor,
+                      fontFamily: AppTheme.interRegular,
+                      fontStyle: FontStyle.normal,
+                      fontSize: SizeConfig.setSp(18.0),
+                    ),
+                  ),
+                  Text(
+                    "+91 7805977569",
+                    style: TextStyle(
+                      color: AppColors.greyDarkColor,
+                      fontFamily: AppTheme.interRegular,
+                      fontStyle: FontStyle.normal,
+                      fontSize: SizeConfig.setSp(18.0),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-
-class ButtonCustom extends StatelessWidget {
-  ButtonCustom({
-    @required this.imageName,
-    @required this.onTap,
-    @required this.showIndicator,
-    @required this.title,
-  });
-
+class RideTabs extends StatelessWidget {
   final Function onTap;
   final bool showIndicator;
   final String title;
-  final String imageName;
+
+  const RideTabs({this.onTap, this.showIndicator, this.title});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: SizeConfig.relativeHeight(4.67),
-        width: SizeConfig.relativeWidth(37.55),
-        decoration: BoxDecoration(
-          color: showIndicator ? Colors.yellow[700] : Colors.grey,
-//          border: Border.all(
-//            color: AppColors.blueColor,
-//            width: 2,
-//          ),
-//          boxShadow: [
-//            BoxShadow(
-//              color: AppColors.white,
-//              offset: Offset(0, 0),
-//              blurRadius: 6,
-//              spreadRadius: 0,
-//            )
-//          ],
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-
-                ),
-                SizeConfig.horizontalSpacer(1.94),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: showIndicator ? AppColors.white : AppColors.white,
-                    fontFamily: AppTheme.interBold,
-                    fontSize: SizeConfig.setSp(16),
-                  ),
-                )
-              ],
-            ),
-
-          ],
+        child: Text(
+          title,
+          style: TextStyle(
+            color: showIndicator ? AppColors.yellow : AppColors.white,
+            fontFamily: AppTheme.interRegular,
+            fontStyle: FontStyle.normal,
+            fontSize: SizeConfig.setSp(18.0),
+          ),
         ),
       ),
     );
   }
-
-
 }
-
-
-
