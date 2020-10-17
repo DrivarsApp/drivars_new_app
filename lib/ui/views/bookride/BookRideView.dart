@@ -404,7 +404,7 @@ class _BookRideViewState extends State<BookRideView>
                       onTap: () {},
                     ),
                     ButtonCustom(
-                      title: 'Book Now ',
+                      title: 'Book  ',
                       showIndicator: !model.cashSelected,
                       onTap: () {
                         //s model.menuSelected(false);
